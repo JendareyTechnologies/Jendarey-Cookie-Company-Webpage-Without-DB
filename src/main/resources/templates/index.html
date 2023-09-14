@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jendarey Cookie Company</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 40px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        section {
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        #banner {
+            background-image: url('/image/banner-image.jpg');
+            background-size: cover;
+            text-align: center;
+            padding: 5px 0 5px;
+            color: #fff;
+        }
+
+        #banner h1 {
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+
+        #banner p {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        #banner a {
+            display: inline-block;
+            background-color: #ff8c00;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #banner a:hover {
+            background-color: #ff6a00;
+        }
+
+        #featured-products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .product {
+            background-color: #f6efef;
+            border: 1px solid #dfd8d8;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product img {
+            max-width: 50%;
+            height: auto;
+        }
+
+        .product h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product p {
+            font-size: 16px;
+        }
+
+        .product .price {
+            font-size: 18px;
+            color: #b41919;
+            margin-top: 10px;
+        }
+
+        .product button {
+            background-color: #3315a0;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product button:hover {
+            background-color: #eb0a0a;
+        }
+
+        #about-us {
+            background-color: #dee1e6;
+        }
+
+        #about-us p {
+            font-size: 18px;
+        }
+
+        #contact {
+            background-color: #3b3a3a;
+            color: #fff;
+        }
+
+        #contact h2, #contact label {
+            color: #e8dcdc;
+        }
+
+        #contact p {
+            font-size: 18px;
+        }
+
+        #contact input[type="text"],
+        #contact input[type="email"],
+        #contact textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #contact button[type="submit"] {
+            background-color: #ff8c00;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #contact button[type="submit"]:hover {
+            background-color: #ff1500;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 18px;
+        }
+
+        <!-- Styles for the payment section -->
+        /* Payment section styles */
+        #payment {
+            display: none;
+            padding: 40px;
+        }
+
+
+        #payment-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #payment-table th, #payment-table td {
+            border: 1px solid #1b17d5;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #payment-table th {
+            background-color: #160bdf;
+            color: #fff;
+        }
+
+        #payment h3 {
+            margin-top: 20px;
+        }
+
+        .payment-label {
+        display: inline-block;
+        margin-right: 20px; /* Adjust the margin as needed to control spacing */
+        }
+        
+        #pay-button {
+        font-size: 18px; /* Adjust the font size to make it bigger */
+        color: red; /* Set the text color to red */
+       }
+       
+       #checkout-button {
+        font-size: 18px; /* Adjust the font size to make it bigger */
+        color: red; /* Set the text color to red */
+       }
+
+
+          /* Styles for the host info */
+         #host-info {
+            position: absolute;
+            top: 10px;
+            right: 10px; /* Adjusted to the top-right corner */
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 22px;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Script to display host info... -->
+
+    <script>
+        // Function to display host info
+        function displayHostInfo() {
+            const hostInfoElement = document.createElement("div");
+            hostInfoElement.id = "host-info";
+            document.body.appendChild(hostInfoElement);
+
+            // Get the hostname and host IP address
+            const hostname = window.location.hostname;
+            const hostIP = window.location.host;
+
+            // Update the host info element with the data
+            hostInfoElement.textContent = `Host: ${hostname} | IP: ${hostIP}`;
+        }
+
+        // Call the function to display host info
+        displayHostInfo();
+    </script>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/cart">Cart (0)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="banner">
+        <h1>Welcome to Jendarey Cookie Company</h1>
+        <h2>Delicious homemade cookies for every occasion!</h2>
+        <a href="/menu">View Menu</a>
+    </section>
+
+    <section id="featured-products">
+        <h2>Featured Products</h2>
+        <!-- Cookie 1 -->
+        <div class="product">
+            <img src="/image/cookie1.jpg" alt="Chocolate Chip Cookie">
+            <h3>Chocolate Chip Cookie</h3>
+            <p>Our classic chocolate chip cookie is a crowd favorite.</p>
+            <p class="price">$3.50</p>
+            <button onclick="addToCart('Chocolate Chip Cookie', 3.50)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 2 -->
+        <div class="product">
+            <img src="/image/cookie2.jpg" alt="Oatmeal Raisin Cookie">
+            <h3>Oatmeal Raisin Cookie</h3>
+            <p>Delicious oatmeal raisin cookies for a healthy treat.</p>
+            <p class="price">$3.00</p>
+            <button onclick="addToCart('Oatmeal Raisin Cookie', 3.00)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 3 -->
+        <div class="product">
+            <img src="/image/cookie3.jpg" alt="Snickerdoodle Cookie">
+            <h3>Snickerdoodle Cookie</h3>
+            <p>A cinnamon and sugar delight for your taste buds.</p>
+            <p class="price">$3.25</p>
+            <button onclick="addToCart('Snickerdoodle Cookie', 3.25)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 4 -->
+        <div class="product">
+            <img src="/image/cookie4.jpg" alt="Macadamia Nut Cookie">
+            <h3>Macadamia Nut Cookie</h3>
+            <p>Buttery and nutty macadamia nut cookies for a rich flavor.</p>
+            <p class="price">$3.75</p>
+            <button onclick="addToCart('Macadamia Nut Cookie', 3.75)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 5 -->
+        <div class="product">
+            <img src="/image/cookie5.jpg" alt="White Chocolate Macadamia Nut Cookie">
+            <h3>White Chocolate Macadamia Nut Cookie</h3>
+            <p>Our classic macadamia nut cookie with a white chocolate twist.</p>
+            <p class="price">$4.00</p>
+            <button onclick="addToCart('White Chocolate Macadamia Nut Cookie', 4.00)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 6 -->
+        <div class="product">
+            <img src="/image/cookie6.jpg" alt="Peanut Butter Cookie">
+            <h3>Peanut Butter Cookie</h3>
+            <p>A peanut butter lover's dream in cookie form.</p>
+            <p class="price">$3.25</p>
+            <button onclick="addToCart('Peanut Butter Cookie', 3.25)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 7 -->
+        <div class="product">
+            <img src="/image/cookie7.jpg" alt="Gingersnap Cookie">
+            <h3>Gingersnap Cookie</h3>
+            <p>Spiced and crispy gingersnap cookies for a unique taste.</p>
+            <p class="price">$3.50</p>
+            <button onclick="addToCart('Gingersnap Cookie', 3.50)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 8 -->
+        <div class="product">
+            <img src="/image/cookie8.jpg" alt="Shortbread Cookie">
+            <h3>Shortbread Cookie</h3>
+            <p>Classic buttery shortbread cookies for a melt-in-your-mouth experience.</p>
+            <p class="price">$3.00</p>
+            <button onclick="addToCart('Shortbread Cookie', 3.00)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 9 -->
+        <div class="product">
+            <img src="/image/cookie9.jpg" alt="Sugar Cookie">
+            <h3>Sugar Cookie</h3>
+            <p>Sweet and simple sugar cookies that melt in your mouth.</p>
+            <p class="price">$2.75</p>
+            <button onclick="addToCart('Sugar Cookie', 2.75)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 10 -->
+        <div class="product">
+            <img src="/image/cookie10.jpg" alt="Chocolate Covered Oreo Cookie">
+            <h3>Chocolate Covered Oreo Cookie</h3>
+            <p>An Oreo cookie covered in rich, creamy chocolate.</p>
+            <p class="price">$3.50</p>
+            <button onclick="addToCart('Chocolate Covered Oreo Cookie', 3.50)">Add to Cart</button>
+        </div>
+
+        <!-- Cookie 11 -->
+        <div class="product">
+            <img src="/image/cookie11.jpg" alt="Chocolate Hazelnut Cookie">
+            <h3>Chocolate Hazelnut Cookie</h3>
+            <p>A rich and decadent cookie made with chocolate chips and hazelnuts.</p>
+            <p class="price">$3.75</p>
+            <button onclick="addToCart('Chocolate Hazelnut Cookie', 3.75)">Add to Cart</button>
+        </div>
+    </section>
+
+    <!-- Table to display the cart -->
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="cart-body">
+            <!-- Cart items will be added here dynamically using JavaScript -->
+        </tbody>
+    </table>
+
+    <!-- Checkout button -->
+    <button id="checkout-button" onclick="checkout()">Checkout</button>
+
+    <!-- Payment page -->
+    <section id="payment">
+        <h2>Payment</h2>
+        <table id="payment-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="payment-body">
+                <!-- Selected cookies and prices will be added here dynamically using JavaScript -->
+            </tbody>
+        </table>
+
+        <!-- Payment options -->
+    <h3>Choose a Payment Option:</h3>
+    <label class="payment-label">
+        <input type="radio" name="payment-option" value="credit-card"> Credit Card
+    </label>
+    <label class="payment-label">
+        <input type="radio" name="payment-option" value="paypal"> PayPal
+    </label>
+    <label class="payment-label">
+        <input type="radio" name="payment-option" value="venmo"> Venmo
+    </label>
+    <label class="payment-label">
+        <input type="radio" name="payment-option" value="zelle"> Zelle
+    </label>
+    <label class="payment-label">
+        <input type="radio" name="payment-option" value="applecard"> AppleCard
+    </label>
+    <label class="payment-label">
+        <input type="radio" name="payment-option" value="googlepay"> GooglePay
+    </label>
+
+        <!-- Payment button -->
+        <button id="pay-button" onclick="processPayment()">Pay Now</button>
+    </section>
+
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>At Jendarey Cookie Company, we believe that cookies are more than just a snack. They're a way to bring people together and create lasting memories. That's why we make our cookies with the finest ingredients and bake them with love.</p>
+
+        <p>Our cookies are made with real butter, fresh eggs, and high-quality chocolate. We never use artificial flavors or preservatives. We also bake our cookies in small batches to ensure that they're always fresh and delicious.</p>
+
+        <p>We offer a wide variety of cookies to choose from, so there's something for everyone to enjoy. Whether you're a fan of classic chocolate chip cookies or something more unique like our chocolate hazelnut or triple chocolate cookies, we have you covered.</p>
+
+        <p>We also offer a variety of cookie platters and gift baskets perfect for any occasion. So whether you're celebrating a birthday, holiday, or simply want to treat yourself, we have the perfect cookie for you.</p>
+
+        <p>Try our cookies today and experience the joy of homemade goodness. We know you'll taste the difference!</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or feedback, please feel free to contact us using the form below:</p>
+
+        <form id="contact-form" action="/submit" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <footer>
+        &copy; 2023 Jendarey Cookie Company. All rights reserved.
+    </footer>
+    
+    <!-- Script to display host info... -->
+
+    <script>
+        
+        // Cart to store selected cookies and quantities
+        const cart = {};
+
+        // Function to add cookies to the cart
+        function addToCart(cookieName, price) {
+            if (cart[cookieName]) {
+                cart[cookieName].quantity += 1;
+            } else {
+                cart[cookieName] = {
+                    price: price,
+                    quantity: 1
+                };
+            }
+
+            updateCartTable();
+        }
+
+        // Function to update the cart table
+        function updateCartTable() {
+            const cartBody = document.getElementById("cart-body");
+            cartBody.innerHTML = "";
+
+            let totalAmount = 0;
+
+            for (const cookieName in cart) {
+                const { price, quantity } = cart[cookieName];
+                const total = price * quantity;
+                totalAmount += total;
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${cookieName}</td>
+                    <td>$${price.toFixed(2)}</td>
+                    <td>${quantity}</td>
+                    <td>$${total.toFixed(2)}</td>
+                `;
+
+                cartBody.appendChild(row);
+            }
+
+            document.getElementById("checkout-button").textContent = `Checkout ($${totalAmount.toFixed(2)})`;
+        }
+
+        // Function to handle the checkout process
+        function checkout() {
+            document.getElementById("payment").style.display = "block";
+            updatePaymentTable();
+        }
+
+        // Function to update the payment table
+        function updatePaymentTable() {
+            const paymentBody = document.getElementById("payment-body");
+            paymentBody.innerHTML = "";
+
+            for (const cookieName in cart) {
+                const { price, quantity } = cart[cookieName];
+                const total = price * quantity;
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${cookieName}</td>
+                    <td>$${price.toFixed(2)}</td>
+                    <td>${quantity}</td>
+                    <td>$${total.toFixed(2)}</td>
+                `;
+
+                paymentBody.appendChild(row);
+            }
+        }
+
+        // Function to process the payment
+        function processPayment() {
+            const selectedPaymentOption = document.querySelector('input[name="payment-option"]:checked');
+            if (!selectedPaymentOption) {
+                alert("Please select a payment option.");
+                return;
+            }
+
+            const paymentOption = selectedPaymentOption.value;
+            alert(`Payment successful using ${paymentOption.toUpperCase()}! Thank you for your order and we hope to see again.`);
+            // Reset the cart and hide the payment section
+            cart = {};
+            updateCartTable();
+            updatePaymentTable();
+            document.getElementById("payment").style.display = "none";
+        }
+    </script>
+</body>
+</html>
